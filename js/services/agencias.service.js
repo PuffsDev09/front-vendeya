@@ -131,3 +131,23 @@ function seleccionarAgencia(agencia) {
     // Cerrar modal
     cerrarModalAgencias();
 }
+
+/**
+ * Busca una agencia por nombre y si la encuentra, la autoselecciona.
+ */
+export function buscarYSeleccionarAgencia(nombreRecibido) {
+    if (!nombreRecibido) return false;
+    const textoUpper = nombreRecibido.toUpperCase().trim();
+    
+    // Buscar coincidencia en Agencias
+    const agenciaEncontrada = Agencias.find(item => {
+        const nombre = (item.nombre || '').toUpperCase();
+        return nombre.includes(textoUpper) || textoUpper.includes(nombre);
+    });
+
+    if (agenciaEncontrada) {
+        seleccionarAgencia(agenciaEncontrada);
+        return true;
+    }
+    return false;
+}
