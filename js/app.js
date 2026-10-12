@@ -33,7 +33,15 @@ function prellenarDesdeURL() {
         if (parametros.has(parametroURL)) {
             const elemento = document.getElementById(idElementoHTML);
             if (elemento) {
-                elemento.value = parametros.get(parametroURL);
+                let valor = parametros.get(parametroURL);
+                if (idElementoHTML === 'whatsapp') {
+                    let limpio = valor.replace(/\D/g, '');
+                    if (limpio.startsWith('51') && limpio.length > 9) {
+                        limpio = limpio.substring(2);
+                    }
+                    valor = limpio.slice(0, 9);
+                }
+                elemento.value = valor;
             }
         }
     }

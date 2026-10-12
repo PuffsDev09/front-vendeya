@@ -43,7 +43,11 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">WhatsApp *</label>
-                <input type="text" id="whatsapp" required placeholder="+51..." class="w-full p-2 border rounded mt-1">
+                <input type="tel" id="whatsapp" required placeholder="Ej: 987654321" maxlength="9" pattern="[0-9]{9}" inputmode="numeric" class="w-full p-2 border rounded mt-1">
+                <p id="whatsapp_aviso" class="hidden text-xs text-amber-800 bg-amber-50 border border-amber-300 rounded p-2 mt-1.5 flex items-center gap-1.5 transition">
+                    <span class="text-sm">⚠️</span>
+                    <span>Solo debes poner los <strong>9 números</strong> del teléfono, sin prefijo (+51) ni espacios.</span>
+                </p>
             </div>
 
             <div>

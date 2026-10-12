@@ -32,10 +32,16 @@ async function enviarABackend() {
  * Lee todos los campos del formulario y retorna un objeto con los datos
  */
 function recolectarDatosFormulario() {
+    let whatsapp = document.getElementById('whatsapp').value.trim().replace(/\D/g, '');
+    if (whatsapp.startsWith('51') && whatsapp.length > 9) {
+        whatsapp = whatsapp.substring(2);
+    }
+    whatsapp = whatsapp.slice(0, 9);
+
     return {
         nombre_completo: document.getElementById('nombre_completo').value,
         dni: document.getElementById('dni').value,
-        whatsapp: document.getElementById('whatsapp').value,
+        whatsapp: whatsapp,
         producto: document.getElementById('producto').value,
         metodo_pago: document.getElementById('metodo_pago').value,
         valor_restante: document.getElementById('valor_restante').value,
@@ -82,6 +88,14 @@ export function inicializarEnvio() {
         e.preventDefault();
 
         const data = recolectarDatosFormulario();
+
+        // Validación estricta de teléfono (exactamente 9 dígitos)
+        if (!/^[0-9]{9}$/.test(data.whatsapp)) {
+            alert('❌ Por favor, ingresa un número de teléfono válido de 9 dígitos (sin prefijo +51 ni espacios).');
+            const inputWa = document.getElementById('whatsapp');
+            if (inputWa) inputWa.focus();
+            return;
+        }
 
         // Validación estricta final (por si el navegador ignora validación HTML de inputs readonly)
         if (data.tipo_envio === 'Provincia' && !data.agencia) {
